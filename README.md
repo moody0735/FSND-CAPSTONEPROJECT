@@ -72,7 +72,7 @@ API endpoints can be accessed via https://fsndheroku-agency.herokuapp.com/
 ## API Reference
 
 ## Getting Started
-Base URL: This application can be run locally. The hosted version is at `https://ry-fsnd-capstone.herokuapp.com`.
+Base URL: This application can be run locally. The hosted version is at `https://fsndheroku-agency.herokuapp.com`.
 
 Authentication: This application requires authentication to perform various actions. All the endpoints require
 various permissions, except the root (or health) endpoint, that are passed via the `Bearer` token.
