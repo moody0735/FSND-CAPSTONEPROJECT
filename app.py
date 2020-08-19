@@ -6,7 +6,6 @@ from flask_cors import CORS
 from database.models import setup_db, Actor, Movie
 from auth.auth import AuthError, requires_auth
 
-
   
 def create_app(test_config=None):
   # Create and configure the app
@@ -16,16 +15,19 @@ def create_app(test_config=None):
   CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
-
-
-
   @app.after_request
   def after_request(response):
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
     return response
 
-    
+
+
+  @app.route('/')
+  def health():
+    return jsonify({'health': 'Running!!'}), 200
+  
+
 
   # Handle GET requests for list of actors.
   @app.route('/actors', methods=['GET'])
@@ -36,9 +38,6 @@ def create_app(test_config=None):
       'success': True,
       'actors': [actor.long() for actor in actors]
     }), 200
-
-
-
 
 
 
@@ -204,9 +203,6 @@ def create_app(test_config=None):
       'success': True,
       'delete': movie_id
     })
-
-
-
 
   # ---------------------------------------------------------
   # Error Handling

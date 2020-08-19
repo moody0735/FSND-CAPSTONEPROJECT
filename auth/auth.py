@@ -1,3 +1,4 @@
+import os
 import json
 from flask import request, _request_ctx_stack
 from functools import wraps
@@ -5,12 +6,12 @@ from jose import jwt
 from urllib.request import urlopen
 
 
-AUTH0_DOMAIN = 'dev-fsnd2.us.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'agency'
+
+AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN')
+ALGORITHMS = os.environ.get('ALGORITHMS')
+API_AUDIENCE = os.environ.get('API_AUDIENCE')
 
 
-## AuthError Exception
 '''
 AuthError Exception
 A standardized way to communicate auth failure modes
@@ -21,7 +22,7 @@ class AuthError(Exception):
         self.status_code = status_code
 
 
-## Auth Header
+# Auth Header
 
 def get_token_auth_header():
     auth_header = request.headers.get("Authorization", None)
@@ -59,8 +60,6 @@ def check_permissions(permission, payload):
             'description': 'Permission Not found',
         }, 401)
     return True
-
-
 
 
 
@@ -117,10 +116,8 @@ def verify_decode_jwt(token):
         'description': 'Unable to find the appropriate key.'
         }, 400)
 
-'''
-@TODO implement @requires_auth(permission) decorator method
 
-'''
+
 def requires_auth(permission=''):
     def requires_auth_decorator(f):
         @wraps(f)

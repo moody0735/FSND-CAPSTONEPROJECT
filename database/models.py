@@ -4,13 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 
 
-
-database_path = "postgres://perymhxgamczed:03a17684910bed4e906c1a2ca6e34627dcae377f68abd29161e97383ad9e0c68@ec2-54-91-178-234.compute-1.amazonaws.com:5432/d6o1bv4ceb3743"
+database_path = os.environ.get('DATABASE_URL')
 if not database_path:
     database_name = "capstone"
     database_path = "postgres://{}:{}@{}/{}".format('postgres', '9520099', 'localhost:5432', database_name)
-
-
 
 db = SQLAlchemy()
 
@@ -24,9 +21,6 @@ def setup_db(app, database_path=database_path):
     db.app = app
     db.init_app(app)
     db.create_all()
-
-
-
 
 
 # ---------------------------------------------------------
